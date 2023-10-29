@@ -20,19 +20,19 @@ on:
       DEVICE_TREE:
         description: 'OrangeFox Device Tree'
         required: true
-        default: 'https://github.com/cd-Crypton/custom_recovery_tree_realme_nashc'
+        default: 'https://github.com/ymdzq/OFRP-device_xiaomi_mondrian'
       DEVICE_TREE_BRANCH:
         description: 'OrangeFox Device Tree Branch'
         required: true
-        default: 'android-12.1'
+        default: 'fox_12.1-a14'
       DEVICE_PATH:
         description: 'Specify your Device Path'
         required: true
-        default: 'device/realme/nashc'
+        default: 'device/xiaomi/mondrian'
       DEVICE_NAME:
         description: 'Specify your Device Codename'
         required: true
-        default: 'nashc'
+        default: 'mondrian'
       BUILD_TARGET:
         description: 'Specify your Build Target'
         required: true
@@ -81,6 +81,19 @@ jobs:
         git clone https://gitlab.com/OrangeFox/sync.git -b master
         cd sync
         ./orangefox_sync.sh --branch ${{ github.event.inputs.MANIFEST_BRANCH }} --path ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ github.event.inputs.MANIFEST_BRANCH }}
+        cd ${GITHUB_WORKSPACE}
+        git clone https://github.com/ymdzq/scripts of_patch
+        cd ${GITHUB_WORKSPACE}/OrangeFox/fox_${{ github.event.inputs.MANIFEST_BRANCH }}/bootable/recovery
+        git fetch https://github.com/sekaiacg/twrp_recovery android-12.1 && git cherry-pick 443565c
+        git apply ${GITHUB_WORKSPACE}/of_patch/early-translation.patch
+        git apply ${GITHUB_WORKSPACE}/of_patch/fastbootd-optimize.patch
+        git apply ${GITHUB_WORKSPACE}/of_patch/Backup_Display_Name.patch
+        git apply ${GITHUB_WORKSPACE}/of_patch/5743.patch
+        git apply ${GITHUB_WORKSPACE}/of_patch/DST.patch
+        git apply ${GITHUB_WORKSPACE}/of_patch/settings.patch
+        git apply ${GITHUB_WORKSPACE}/of_patch/AVB20.patch
+        git apply ${GITHUB_WORKSPACE}/of_patch/Update_Log_File.patch
+        git apply ${GITHUB_WORKSPACE}/of_patch/Set_FBE_Status.patch
 
     - name: Clone Device Tree
       run: |
