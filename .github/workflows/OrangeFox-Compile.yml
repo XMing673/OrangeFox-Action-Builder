@@ -20,7 +20,7 @@ on:
       DEVICE_TREE:
         description: 'OrangeFox Device Tree'
         required: true
-        default: 'https://github.com/ymdzq/OFRP-device_xiaomi_mondrian'
+        default: 'https://github.com/XMing673/device_xiaomi_unicorn-twrp-orfp-12.1.git'
       DEVICE_TREE_BRANCH:
         description: 'OrangeFox Device Tree Branch'
         required: true
@@ -28,11 +28,11 @@ on:
       DEVICE_PATH:
         description: 'Specify your Device Path'
         required: true
-        default: 'device/xiaomi/mondrian'
+        default: 'device/xiaomi/unicorn'
       DEVICE_NAME:
         description: 'Specify your Device Codename'
         required: true
-        default: 'mondrian'
+        default: 'unicorn'
       BUILD_TARGET:
         description: 'Specify your Build Target'
         required: true
